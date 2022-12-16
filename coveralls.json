@@ -1,0 +1,19 @@
+{
+  "skip_files": [
+    "lib/mix",
+    "lib/terraform_elixir_repo/application.ex",
+    "lib/terraform_elixir_repo/release_tasks.ex",
+    "lib/terraform_elixir_repo_web.ex",
+    "lib/terraform_elixir_repo_mail.ex",
+    "lib/terraform_elixir_repo_web/endpoint.ex",
+    "lib/terraform_elixir_repo_web/telemetry.ex",
+    "lib/terraform_elixir_repo_web/channels/user_socket.ex",
+    "lib/terraform_elixir_repo_web/views/error_helpers.ex",
+    "lib/terraform_elixir_repo_web/controllers/api/fallback_controller.ex",
+    "test/support"
+  ],
+  "coverage_options": {
+    "minimum_coverage": 100,
+    "html_filter_full_covered": true
+  }
+}

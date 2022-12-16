@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  build:
+    build:
+      context: .
+      cache_from:
+        - terraform_elixir_repo-build
+      target: build
+    image: terraform_elixir_repo-build
+
+  app:
+    build:
+      context: .
+      cache_from:
+        - terraform_elixir_repo-build
+        - terraform_elixir_repo
+      target: app
+    image: terraform_elixir_repo

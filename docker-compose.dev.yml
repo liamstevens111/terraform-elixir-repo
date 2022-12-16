@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:14.2
+    container_name: terraform_elixir_repo_db
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=terraform_elixir_repo_dev
+    ports:
+      - "5432:5432"
