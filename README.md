@@ -1,13 +1,11 @@
-<<<<<<< HEAD
 # terraform-elixir-repo
 
-Example repository to use with Terraform infrastructure to deploy the application to `ECR` for use with ECS, and to test connections to AWS S3, RDS, and Elasticache
 =======
 [![Build Status](CI_BADGE_URL goes here)](REPO_URL goes here)
 
 ## Introduction
 
-> *App introduction goes here ...*
+Example repository to use with Terraform infrastructure to deploy the application to `ECR` for use with ECS, and to test connections to AWS S3, RDS, and Elasticache
 
 ## Project Setup
 
@@ -124,4 +122,3 @@ Example repository to use with Terraform infrastructure to deploy the applicatio
 
 The project relies entirely on [Github Actions](https://github.com/features/actions) for CI/CD via multiple workflows located under the [`.github/workflows/`](.github/workflows) directory.
 Please check out the [`.github/workflows/README.md`](.github/workflows/README.md) file for further instructions.
->>>>>>> 7bbea31 (Base project from nimble twmplate)
