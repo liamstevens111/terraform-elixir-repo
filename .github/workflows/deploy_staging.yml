@@ -1,0 +1,94 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+env:
+  CONTAINER_NAME: liam-example-staging
+  ECS_CLUSTER: liam-example-staging-ecs-cluster
+  ECR_REPOSITORY: liam-example-ecr
+  ECS_SERVICE: liam-example-staging-ecs-service
+  ECS_TASK_DEFINITION: liam-example-staging-task-definition
+  REGION: us-east-1
+
+jobs:
+  build_image:
+    name: Build the Docker image
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    outputs:
+      image: ${{ steps.build-image.outputs.image }}
+
+    steps:
+      - name: ENV variables
+        uses: FranzDiebold/github-env-vars-action@v2.3.1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1.6.1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
+          mask-aws-account-id: 'no'
+
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1.3.3
+
+      - name: Build, tag, and push image to AWS ECR
+        id: build-image
+        env:
+          SHARED_ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker build -t $SHARED_ECR_REGISTRY/$ECR_REPOSITORY:$CI_REF_NAME_SLUG-$CI_SHA_SHORT -t $SHARED_ECR_REGISTRY/$ECR_REPOSITORY:staging .
+          docker push -a $SHARED_ECR_REGISTRY/$ECR_REPOSITORY
+          echo "::set-output name=image::$SHARED_ECR_REGISTRY/$ECR_REPOSITORY:$CI_REF_NAME_SLUG-$CI_SHA_SHORT"
+  deploy:
+    needs: build_image
+
+    name: Deploy the built image
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 10
+
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1.6.1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
+
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1.3.3
+
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} \
+          --query taskDefinition > task-definition.json
+      - name: Fill in the new image ID in the AWS ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1.1.1
+        with:
+          task-definition: task-definition.json
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ needs.build_image.outputs.image }}
+
+      - name: Trigger ECS Deployment
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1.4.10
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
