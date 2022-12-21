@@ -8,7 +8,7 @@ on:
 
 env:
   CONTAINER_NAME: liam-example-staging
-  ECS_CLUSTER: liam-example-staging-ecs-cluster
+  ECS_CLUSTER: liam-example-staging-cluster
   ECR_REPOSITORY: liam-example-ecr
   ECS_SERVICE: liam-example-staging-ecs-service
   ECS_TASK_DEFINITION: liam-example-staging-task-definition
