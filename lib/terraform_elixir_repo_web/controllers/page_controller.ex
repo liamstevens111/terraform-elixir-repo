@@ -3,11 +3,11 @@ defmodule TerraformElixirRepoWeb.PageController do
   use TerraformElixirRepoWeb, :controller
   alias Redix
 
-  def index(conn, %{"redis-key" => redis_key} = _params) do
+  def index(conn, params) do
     {previous_value, new_value} =
-      if redis_key do
+      if params["redis-key"] do
         previous_value = Redix.command(:redix, ["GET", "redis_key"])
-        Redix.command(:redix, ["SET", "redis-key", redis_key])
+        Redix.command(:redix, ["SET", "redis-key", params["redis-key"]])
         new_value = Redix.command(:redix, ["GET", "redis_key"])
         {previous_value, new_value}
       else
