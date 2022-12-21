@@ -14,7 +14,9 @@ defmodule TerraformElixirRepo.Application do
       TerraformElixirRepoWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: TerraformElixirRepo.PubSub},
-      {Redix, {"redis://#{System.get_env("REDIS_ENDPOINT_ADDRESS")}", [name: :redix]}},
+      {Redix,
+       {"redis://liam-example-staging-cluster.hyf2tg.0001.use1.cache.amazonaws.com:6379",
+        [name: :redix]}},
       # Start the Endpoint (http/https)
       TerraformElixirRepoWeb.Endpoint
       # Start a worker by calling: TerraformElixirRepo.Worker.start_link(arg)
