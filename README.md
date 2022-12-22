@@ -5,7 +5,10 @@
 
 ## Introduction
 
-Example repository to use with Terraform infrastructure to deploy the application to `ECR` for use with ECS, and to test connections to AWS S3, RDS, and Elasticache
+Example repository to use with Terraform infrastructure to deploy the application to `ECR` for use with ECS, and to test connections to AWS S3, RDS, and Elasticache. Here is it running:
+
+<img width="1249" alt="Screenshot 2022-12-22 at 13 52 17" src="https://user-images.githubusercontent.com/8955671/209076796-b33e521a-7f3f-4dab-980a-091d4cc1eead.png">
+
 
 ## Project Setup
 
