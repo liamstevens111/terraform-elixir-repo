@@ -16,12 +16,14 @@ defmodule TerraformElixirRepoWeb.PageController do
 
     redis_endpoint = System.get_env("REDIS_ENDPOINT_ADDRESS")
     s3_bucket_name = System.get_env("AWS_S3_BUCKET_NAME")
+    some_random_env_variable = System.get_env("some_random_env_variable")
 
     render(conn, "index.html",
       previous_value: previous_value || "No redis-key in query string",
       new_value: new_value || "No redis-key in query string",
       redis_endpoint: redis_endpoint,
-      s3_bucket_name: s3_bucket_name
+      s3_bucket_name: s3_bucket_name,
+      some_random_env_variable: some_random_env_variable
     )
   end
 end
