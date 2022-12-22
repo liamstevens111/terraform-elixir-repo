@@ -5,39 +5,14 @@
 
 <section class="row">
   <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">
-          v1.6 Changelog
-        </a>
-      </li>
-    </ul>
+    <h2>Values</h2>
+    <p>Redis endpoint: <%= @redis_endpoint %></p>
+    <p>S3 bucket name: <%= @s3_bucket_name %></p>
+    <p>Previous redis key value: <%= @previous_value %></p>
+    <p>New saved redis key value: <%= @new_value %></p>
   </article>
   <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
-    </ul>
+    <h2>S3 bucket</h2>
+    <img src={"https://#{@s3_bucket_name}.s3.amazonaws.com/static/beach.jpg"} />
   </article>
 </section>

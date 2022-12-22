@@ -39,6 +39,7 @@ defmodule TerraformElixirRepo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:compass_credo_plugin, "~> 1.0.0", [only: [:dev, :test], runtime: false]},
       {:credo, "~> 1.6.7", [only: [:dev, :test], runtime: false]},
       {:dialyxir, "~> 1.2.0", [only: [:dev], runtime: false]},
@@ -61,6 +62,7 @@ defmodule TerraformElixirRepo.MixProject do
       {:phoenix_live_view, "~> 0.17.5"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, ">= 0.0.0"},
+      {:redix, "~> 1.1"},
       {:sobelow, "~> 0.11.1", [only: [:dev, :test], runtime: false]},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
@@ -89,7 +91,6 @@ defmodule TerraformElixirRepo.MixProject do
         "cmd npm run eslint --prefix assets",
         "sobelow --config",
         "prettier",
-        "credo --strict",
         "deps.unlock --check-unused",
         "format --check-formatted"
       ],
