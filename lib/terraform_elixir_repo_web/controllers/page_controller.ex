@@ -6,9 +6,9 @@ defmodule TerraformElixirRepoWeb.PageController do
   def index(conn, params) do
     {previous_value, new_value} =
       if params["redis-key"] do
-        previous_value = Redix.command(:redix, ["GET", "redis_key"])
+        {_, previous_value} = Redix.command(:redix, ["GET", "redis-key"])
         Redix.command(:redix, ["SET", "redis-key", params["redis-key"]])
-        new_value = Redix.command(:redix, ["GET", "redis_key"])
+        {_, new_value} = Redix.command(:redix, ["GET", "redis-key"])
         {previous_value, new_value}
       else
         {nil, nil}
@@ -18,8 +18,8 @@ defmodule TerraformElixirRepoWeb.PageController do
     s3_bucket_name = System.get_env("AWS_S3_BUCKET_NAME")
 
     render(conn, "index.html",
-      previous_value: previous_value,
-      new_value: new_value,
+      previous_value: previous_value || "No redis-key in query string",
+      new_value: new_value || "No redis-key in query string",
       redis_endpoint: redis_endpoint,
       s3_bucket_name: s3_bucket_name
     )
