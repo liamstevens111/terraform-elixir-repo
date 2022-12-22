@@ -11,5 +11,8 @@
     <p>Previous redis key value: <%= @previous_value %></p>
     <p>New saved redis key value: <%= @new_value %></p>
   </article>
-  <article class="column"></article>
+  <article class="column">
+    <h2>S3 bucket</h2>
+    <img src={"https://#{@s3_bucket_name}.s3.amazonaws.com/static/beach.jpg"} />
+  </article>
 </section>
