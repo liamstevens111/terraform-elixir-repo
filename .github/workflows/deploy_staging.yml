@@ -10,8 +10,8 @@ env:
   CONTAINER_NAME: liam-example-staging
   ECS_CLUSTER: liam-aws-infrastructure-staging-cluster
   ECR_REPOSITORY: liam-aws-infrastructure
-  ECS_SERVICE: liam-example-staging-ecs-service
-  ECS_TASK_DEFINITION: liam-example-staging-task-definition
+  ECS_SERVICE: liam-aws-infrastructure-staging-ecs-service
+  ECS_TASK_DEFINITION: liam-aws-infrastructure-staging-task-definition
   REGION: us-east-1
 
 jobs:
