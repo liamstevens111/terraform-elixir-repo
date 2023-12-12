@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  CONTAINER_NAME: liam-infrastructure-staging
+  CONTAINER_NAME: liam-aws-infrastructure-staging
   ECS_CLUSTER: liam-aws-infrastructure-staging-cluster
   ECR_REPOSITORY: liam-aws-infrastructure
   ECS_SERVICE: liam-aws-infrastructure-staging-ecs-service
